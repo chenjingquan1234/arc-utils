@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "es5",
+    "lib": ["ESNext", "DOM", "ES2018"],
+    "jsx": "preserve",
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "sourceMap": true,
+    "importHelpers": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictFunctionTypes": false,
+    "skipLibCheck": true,
+    "outDir": "lib",
+    "rootDir": "./src",
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "jest.config.ts"
+  ],
+  "exclude": [
+    "src/**/__test__/*.test.ts",
+  ]
+
+}
