@@ -31,7 +31,7 @@ export default {
    * 判断一个值是否是时间戳
    * @param value 时间戳
    */
-  isTimestamp(value) {
+  isTimestamp(value: number) {
     if (isNaN(value)) {
       return false;
     }

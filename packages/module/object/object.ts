@@ -47,14 +47,14 @@ export default {
    * @param value 输入的值，判断是否对象
    * @returns {boolean}
    */
-  deepCopy(obj) {
+  deepCopy(obj: any) {
     if (typeof obj !== "object" || obj === null) {
       return obj;
     }
 
-    let copy = Array.isArray(obj) ? [] : {};
+    const copy: Record<string, any> = Array.isArray(obj) ? [] : {};
 
-    for (let key in obj) {
+    for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         copy[key] = this.deepCopy(obj[key]);
       }

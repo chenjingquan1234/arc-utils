@@ -6,6 +6,7 @@ const resolve = require("@rollup/plugin-node-resolve");
 const typescript = require("@rollup/plugin-typescript");
 const commonjs = require("@rollup/plugin-commonjs");
 const terser = require("@rollup/plugin-terser");
+const json = require("@rollup/plugin-json");
 
 module.exports = [
   {
@@ -34,6 +35,7 @@ module.exports = [
     ],
     plugins: [
       resolve(),
+      json(),
       commonjs(),
       typescript({
         tsconfig: "./tsconfig.json",

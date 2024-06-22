@@ -78,7 +78,7 @@ export default {
    * @param id
    * @returns {*|string}
    */
-  findIdName(list: Global.Info[], id: string) {
+  findIdName(list: Record<string, any>[], id: string) {
     const findItem = list.find((item) => item.id == id);
     return findItem?.name || "-";
   },
@@ -89,7 +89,7 @@ export default {
    * @param id
    * @returns {*|string}
    */
-  findIdItem(list: Global.Info[], id: string) {
+  findIdItem(list: Record<string, any>[], id: string) {
     const findItem = list.find((item) => item.id == id);
     return findItem || {};
   },
@@ -100,7 +100,7 @@ export default {
    * @param id
    * @returns {*|string}
    */
-  getOrgName(item) {
+  getOrgName(item: Record<string, any>) {
     return item.username || item.deptName || item.roleItem || "";
   },
 
@@ -111,9 +111,9 @@ export default {
    * @returns {*|string}
    */
   getValueByExpression(obj: Record<string, any>, expression: string) {
-    let keys = expression.split(".");
+    const keys = expression.split(".");
     let value = obj;
-    for (let key of keys) {
+    for (const key of keys) {
       if (value && typeof value === "object" && key in value) {
         value = value[key];
       } else {
@@ -133,7 +133,7 @@ export default {
    */
   forEachTree(
     treeData: any,
-    callback: Function,
+    callback: any,
     config?: {
       children?: string;
       additional?: Record<string, any>;
@@ -175,7 +175,7 @@ export default {
     const treeMap: Record<string, any> = {};
     this.forEachTree(
       treeData,
-      (item) => {
+      (item: any) => {
         treeMap[item[key]] = item;
       },
       {
@@ -200,9 +200,9 @@ export default {
     const { treeData, id, config } = param;
     const { key = "id", children = "children" } = config || {};
 
-    function findPath(root, targetId) {
+    function findPath(root: any, targetId: any) {
       // 辅助递归函数
-      function findPathHelper(node, targetId, path) {
+      function findPathHelper(node: any, targetId: any, path: any): any {
         // 如果当前节点为空，则返回空路径
         if (!node) return null;
 
@@ -231,15 +231,15 @@ export default {
   },
 
   // 过滤树结构的函数
-  filterTree(tree, callback) {
+  filterTree(tree: any, callback: any) {
     // 辅助函数，用于递归过滤
-    function filterNode(node, callback) {
+    function filterNode(node: any, callback: any) {
       if (!node) return null;
 
       // 检查当前节点是否符合条件
       if (callback(node)) {
         // 如果符合条件，则递归过滤子节点
-        const filteredChildren = node.children?.map((child) => filterNode(child, callback)).filter(Boolean);
+        const filteredChildren = node.children?.map((child: any) => filterNode(child, callback)).filter(Boolean);
         return { id: node.id, ...node, children: filteredChildren };
       } else {
         // 如果不符合条件，则递归过滤子节点并返回空
@@ -248,6 +248,6 @@ export default {
     }
 
     // 遍历树中的每个节点，调用辅助函数开始过滤
-    return tree.map((node) => filterNode(node, callback)).filter(Boolean);
+    return tree.map((node: any) => filterNode(node, callback)).filter(Boolean);
   },
 };

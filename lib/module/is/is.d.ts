@@ -1,21 +1,21 @@
 declare const _default: {
     aaa(a: string): string;
     is(val: unknown, type: string): boolean;
-    isDef<T = unknown>(val?: T): val is T;
-    isUnDef<T = unknown>(val?: T): val is T;
+    isDef<T = unknown>(val?: T | undefined): val is T;
+    isUnDef<T_1 = unknown>(val?: T_1 | undefined): val is T_1;
     isObject(val: any): val is Record<any, any>;
     /**
      * 是否为空
      * @param val
      * @returns
      */
-    isEmpty<T = unknown>(val: T): val is T;
+    isEmpty<T_2 = unknown>(val: T_2): val is T_2;
     /**
      * 是否不为空
      * @param val
      * @returns
      */
-    isNotEmpty<T = unknown>(val: T): val is T;
+    isNotEmpty<T_3 = unknown>(val: T_3): val is T_3;
     /**
      * 是否日期类型
      * @param val
@@ -36,12 +36,12 @@ declare const _default: {
      * @returns
      */
     isNumber(val: unknown): val is number;
-    isPromise<T = any>(val: unknown): val is Promise<T>;
+    isPromise<T_4 = any>(val: unknown): val is Promise<T_4>;
     isString(val: unknown): val is string;
-    isFunction(val: unknown): val is Function;
+    isFunction(val: unknown): val is () => void;
     isBoolean(val: unknown): val is boolean;
     isRegExp(val: unknown): val is RegExp;
-    isArray(val: any): val is Array<any>;
+    isArray(val: any): val is any[];
     isWindow(val: any): val is Window;
     isElement(val: unknown): val is Element;
     isMap(val: unknown): val is Map<any, any>;
