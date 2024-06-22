@@ -1,8 +1,9 @@
-// copy to vben-admin
-
 const toString = Object.prototype.toString;
 
 export default {
+  aaa(a: string) {
+    return a;
+  },
   is(val: unknown, type: string) {
     return toString.call(val) === `[object ${type}]`;
   },
@@ -97,7 +98,7 @@ export default {
     return this.is(val, "String");
   },
 
-  isFunction(val: unknown): val is Function {
+  isFunction(val: unknown): val is () => void {
     return typeof val === "function";
   },
 
@@ -146,5 +147,5 @@ export default {
 
   isEmptyVal(val: any): boolean {
     return val === "" || val === null || val === undefined;
-  }
+  },
 };

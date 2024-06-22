@@ -9,10 +9,10 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["packages/*"]
     },
     "resolveJsonModule": true,
-    "allowJs": true,
+    // "allowJs": true,
     "checkJs": true,
     "declaration": true,
     "sourceMap": true,
@@ -25,15 +25,9 @@
     "strictFunctionTypes": false,
     "skipLibCheck": true,
     "outDir": "lib",
-    "rootDir": "./src",
+    "rootDir": "packages",
+    "types": ["jest", "node"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "jest.config.ts"
-  ],
-  "exclude": [
-    "src/**/__test__/*.test.ts",
-  ]
-
+  "include": ["packages/**/*.ts", "packages/**/*.tsx"],
+  "exclude": ["packages/**/__test__/*.test.ts"]
 }

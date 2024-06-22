@@ -27,3 +27,4 @@
 - cross-env（跨平台设置 node 环境变量）
 - babel-jest
 
+https://www.typescriptlang.org/tsconfig/

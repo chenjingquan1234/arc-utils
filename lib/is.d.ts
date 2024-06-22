@@ -1,4 +1,5 @@
 declare const _default: {
+    aaa(a: string): string;
     is(val: unknown, type: string): boolean;
     isDef<T = unknown>(val?: T): val is T;
     isUnDef<T = unknown>(val?: T): val is T;
