@@ -1,5 +1,8 @@
-依赖
 
+Arc-utils
+Arc: 意为“弧”，象征着连接和桥梁，适合作为工具库的名称，表示它能够连接和简化不同部分的工作
+
+依赖
 - rollup（工具库打包构建核心包）
 - rollup-plugin-terser（rollup 插件，代码压缩混淆）
 - rollup-plugin-visualizer（rollup 插件，可视化并分析 Rollup bundle，以查看模块占用）
