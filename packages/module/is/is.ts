@@ -1,5 +1,9 @@
 const toString = Object.prototype.toString;
 
+export const test = <T = unknown>(val?: T): val is T => {
+  return typeof val !== "undefined";
+};
+
 export const is = (val: unknown, type: string) => {
   return toString.call(val) === `[object ${type}]`;
 };

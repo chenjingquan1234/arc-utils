@@ -1,3 +1,4 @@
+export declare const test: <T = unknown>(val?: T | undefined) => val is T;
 export declare const is: (val: unknown, type: string) => boolean;
 export declare const isDef: <T = unknown>(val?: T | undefined) => val is T;
 export declare const isUnDef: <T = unknown>(val?: T | undefined) => val is T;
