@@ -1,11 +1,8 @@
-declare const _default: {
-    local: {
-        getItem(key: string): any;
-        setItem(key: string, param: any): void;
-    };
-    session: {
-        getItem(key: string): any;
-        setItem(key: string, param: any): void;
-    };
+export declare const local: {
+    getItem(key: string): any;
+    setItem(key: string, param: any): void;
 };
-export default _default;
+export declare const session: {
+    getItem(key: string): any;
+    setItem(key: string, param: any): void;
+};

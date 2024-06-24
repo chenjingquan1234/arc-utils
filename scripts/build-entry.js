@@ -21,7 +21,9 @@ export * from "./${file.baseName}";
         fs.writeFileSync(resolveFile(fullPath, "index.ts"), moduleIndexContent, "utf-8");
       });
       srcIndexContent += `
-export * as ${baseName}Util from "./module/${baseName}";`;
+      export * as ${baseName}Util from "./module/${baseName}";
+      export * from "./module/${baseName}";
+      `;
     }
   } catch (e) {
     console.error(e);
