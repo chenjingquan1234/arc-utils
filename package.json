@@ -1,5 +1,5 @@
 {
-  "name": "cjq",
+  "name": "arc-utils",
   "version": "1.0.0",
   "description": "cjq的工具库",
   "repository": "https://github.com/chenjingquan1234/au-utils.git",
@@ -15,12 +15,18 @@
     "lib",
     "README.md"
   ],
+  "keywords": [
+    "typescript",
+    "au-demo",
+    "utils"
+  ],
   "scripts": {
     "build": "rollup -c",
     "entry": "node ./scripts/build-entry.js",
     "test": "jest",
     "test-coveralls": "jest --coverage",
-    "lint": "eslint ./packages"
+    "lint": "eslint ./packages",
+    "pub": "npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
