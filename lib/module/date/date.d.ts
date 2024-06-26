@@ -25,3 +25,9 @@ export declare function getDateMoment(timestamp: number): any;
  * @param format 格式
  */
 export declare function getDateStr(timestamp: number, format?: string): string;
+/**
+ * 判断时间是否过期
+ * @param date 传入可newDate的时间格式
+ * @param isToday 判断是否从今天的23.59算起
+ */
+export declare function isExpire(date: string | number, isToday?: boolean): boolean;

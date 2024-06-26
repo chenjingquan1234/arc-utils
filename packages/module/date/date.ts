@@ -1,4 +1,5 @@
 import moment from "moment";
+import { isEmpty } from "../is";
 
 /**
  * 时间戳转日期
@@ -70,4 +71,35 @@ export function getDateStr(timestamp: number, format = "YYYY-MM-DD HH:mm:ss"): s
     return "-";
   }
   return momentObj.format(format);
+}
+
+/**
+ * 判断时间是否过期
+ * @param date 传入可newDate的时间格式
+ * @param isToday 判断是否从今天的23.59算起
+ */
+export function isExpire(date: string | number, isToday = false): boolean {
+  if (isEmpty(date)) {
+    console.warn("isExpire: date为空");
+    return false;
+  }
+
+  const curTimestamp = Date.now();
+  let expireTimestamp;
+
+  // 解析日期，并处理无效日期的情况
+  const parsedDate = new Date(date);
+  if (isNaN(parsedDate?.getTime())) {
+    console.warn("isExpire: 无效的日期格式");
+    return false;
+  }
+
+  if (isToday) {
+    expireTimestamp = parsedDate.getTime();
+  } else {
+    expireTimestamp = parsedDate.setHours(23, 59, 59, 999);
+  }
+
+  // 比较时间戳，确定是否过期
+  return expireTimestamp > curTimestamp;
 }

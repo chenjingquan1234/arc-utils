@@ -57,8 +57,6 @@ export function downLoadFile(url: string, name: string) {
   });
 }
 
-export const base64ImgPrefix = "data:image/png;base64,";
-
 //拿值相关函数-------------------------------------------------------------
 
 /**

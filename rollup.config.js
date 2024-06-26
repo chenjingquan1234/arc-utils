@@ -32,6 +32,15 @@ module.exports = [
         sourcemap: false,
         plugins: [terser()],
       },
+      {
+        file: "public/bundle.js",
+        name: "myBundle",
+        format: "umd",
+        globals: {
+          lodash: "_",
+          "./utils/math": "util",
+        },
+      },
     ],
     plugins: [
       // resolve(),

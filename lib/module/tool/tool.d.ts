@@ -15,7 +15,6 @@ export declare function objToQueryString(obj: Record<string, any>): string;
  * @returns {*|string}
  */
 export declare function downLoadFile(url: string, name: string): void;
-export declare const base64ImgPrefix = "data:image/png;base64,";
 /**
  * 获取列表排序序号  1 2 3 4 5...
  * @param index 索引值
