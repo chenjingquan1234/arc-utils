@@ -56,26 +56,6 @@ export const isNotEmpty = <T = unknown>(val: T): val is T => {
 };
 
 /**
- * 判断是否对象是空
- * @param value 输入的值
- *  @returns {boolean}
- */
-export function isObjEmpty(value: Record<string, any>) {
-  if (!isObject(value)) return false;
-  return Object.keys(value).length === 0;
-}
-
-/**
- * 判断是否对象不为空
- * @param value 输入的值
- * @returns {boolean}
- */
-export function isObjNotEmpty(obj: Record<string, any>) {
-  if (!isObject(obj)) return false;
-  return Object.keys(obj).length > 0;
-}
-
-/**
  * 是否日期类型
  * @param val
  * @returns

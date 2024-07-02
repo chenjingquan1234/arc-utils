@@ -18,3 +18,15 @@ export declare function deepAssign(target?: Record<string, any>, ...sources: any
  * @returns {boolean}
  */
 export declare function deepCopy(obj: any): any;
+/**
+ * 判断是否对象是空
+ * @param value object对象
+ *  @returns {boolean}
+ */
+export declare function isObjEmpty(value: Record<string, any>): boolean;
+/**
+ * 判断是否对象不为空
+ * @param value object对象
+ * @returns {boolean}
+ */
+export declare function isObjNotEmpty(obj: Record<string, any>): boolean;

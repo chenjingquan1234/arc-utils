@@ -1,3 +1,5 @@
+export * as constUtil from "./module/const";
+export * from "./module/const";
 export * as dateUtil from "./module/date";
 export * from "./module/date";
 export * as desensitizeUtil from "./module/desensitize";

@@ -4,6 +4,18 @@
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.myBundle = {}, global.moment, global.axios));
 })(this, (function (exports, moment, axios) { 'use strict';
 
+    /**
+     * base64图片前缀
+     */
+    var base64ImgPrefix = "data:image/png;base64,";
+
+    // tips：此文件是自动生成的，无需手动添加
+
+    var index$6 = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        base64ImgPrefix: base64ImgPrefix
+    });
+
     var toString = Object.prototype.toString;
     var test = function (val) {
         return typeof val !== "undefined";
@@ -56,7 +68,7 @@
      * @param value 输入的值
      *  @returns {boolean}
      */
-    function isObjEmpty(value) {
+    function isObjEmpty$1(value) {
         if (!isObject(value))
             return false;
         return Object.keys(value).length === 0;
@@ -66,7 +78,7 @@
      * @param value 输入的值
      * @returns {boolean}
      */
-    function isObjNotEmpty(obj) {
+    function isObjNotEmpty$1(obj) {
         if (!isObject(obj))
             return false;
         return Object.keys(obj).length > 0;
@@ -171,8 +183,8 @@
         isNullAndUnDef: isNullAndUnDef,
         isNullOrUnDef: isNullOrUnDef,
         isNumber: isNumber,
-        isObjEmpty: isObjEmpty,
-        isObjNotEmpty: isObjNotEmpty,
+        isObjEmpty: isObjEmpty$1,
+        isObjNotEmpty: isObjNotEmpty$1,
         isObject: isObject,
         isPromise: isPromise,
         isRegExp: isRegExp,
@@ -445,6 +457,26 @@
         }
         return copy;
     }
+    /**
+     * 判断是否对象是空
+     * @param value object对象
+     *  @returns {boolean}
+     */
+    function isObjEmpty(value) {
+        if (!isObject(value))
+            return false;
+        return Object.keys(value).length === 0;
+    }
+    /**
+     * 判断是否对象不为空
+     * @param value object对象
+     * @returns {boolean}
+     */
+    function isObjNotEmpty(obj) {
+        if (!isObject(obj))
+            return false;
+        return Object.keys(obj).length > 0;
+    }
 
     // tips：此文件是自动生成的，无需手动添加
 
@@ -452,7 +484,9 @@
         __proto__: null,
         assign: assign,
         deepAssign: deepAssign,
-        deepCopy: deepCopy
+        deepCopy: deepCopy,
+        isObjEmpty: isObjEmpty,
+        isObjNotEmpty: isObjNotEmpty
     });
 
     var local = {
@@ -720,6 +754,8 @@
     });
 
     exports.assign = assign;
+    exports.base64ImgPrefix = base64ImgPrefix;
+    exports.constUtil = index$6;
     exports.dateUtil = index$4;
     exports.deepAssign = deepAssign;
     exports.deepCopy = deepCopy;
@@ -757,8 +793,6 @@
     exports.isNullAndUnDef = isNullAndUnDef;
     exports.isNullOrUnDef = isNullOrUnDef;
     exports.isNumber = isNumber;
-    exports.isObjEmpty = isObjEmpty;
-    exports.isObjNotEmpty = isObjNotEmpty;
     exports.isObject = isObject;
     exports.isPromise = isPromise;
     exports.isRegExp = isRegExp;

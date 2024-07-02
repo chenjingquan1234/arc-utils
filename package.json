@@ -1,6 +1,6 @@
 {
   "name": "@cjqer/utils",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "cjq的工具库",
   "repository": "https://github.com/chenjingquan1234/au-utils.git",
   "author": "陈劲全 <chenjingquan@dabby.com.cn>",
@@ -27,7 +27,7 @@
     "test-coveralls": "jest --coverage",
     "lint": "eslint ./packages",
     "login": "npm lofin",
-    "pub": "node ./scripts/publish.js"
+    "pub": "node ./scripts/build-entry.js & node ./scripts/publish.js"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",

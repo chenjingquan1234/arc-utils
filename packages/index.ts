@@ -1,5 +1,8 @@
 // tips：此文件是自动生成的，无需手动添加
 
+      export * as constUtil from "./module/const";
+      export * from "./module/const";
+      
       export * as dateUtil from "./module/date";
       export * from "./module/date";
       
