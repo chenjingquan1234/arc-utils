@@ -246,3 +246,8 @@ export function filterTree(tree: any, callback: any) {
   // 遍历树中的每个节点，调用辅助函数开始过滤
   return tree.map((node: any) => filterNode(node, callback)).filter(Boolean);
 }
+
+// TODO 节流
+// TODO 防抖
+// TODO 防抖
+// TODO compose

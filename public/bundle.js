@@ -64,26 +64,6 @@
         return !isEmpty(val);
     };
     /**
-     * 判断是否对象是空
-     * @param value 输入的值
-     *  @returns {boolean}
-     */
-    function isObjEmpty$1(value) {
-        if (!isObject(value))
-            return false;
-        return Object.keys(value).length === 0;
-    }
-    /**
-     * 判断是否对象不为空
-     * @param value 输入的值
-     * @returns {boolean}
-     */
-    function isObjNotEmpty$1(obj) {
-        if (!isObject(obj))
-            return false;
-        return Object.keys(obj).length > 0;
-    }
-    /**
      * 是否日期类型
      * @param val
      * @returns
@@ -183,8 +163,6 @@
         isNullAndUnDef: isNullAndUnDef,
         isNullOrUnDef: isNullOrUnDef,
         isNumber: isNumber,
-        isObjEmpty: isObjEmpty$1,
-        isObjNotEmpty: isObjNotEmpty$1,
         isObject: isObject,
         isPromise: isPromise,
         isRegExp: isRegExp,
@@ -252,15 +230,25 @@
         return moment(new Date(value));
     }
     /**
-     * 转换日期
-     * @param timestamp 时间戳
+     * 转换日期，输入有效的时间格式，时间戳或者字符串，通过format转时间格式
+     * @param date 时间戳
      * @param format 格式
      */
-    function getDateStr(timestamp, format) {
+    function getDateStr(date, format) {
         if (format === void 0) { format = "YYYY-MM-DD HH:mm:ss"; }
-        var momentObj = getDateMoment(+timestamp);
+        if (isEmpty(date)) {
+            console.warn("getDateStr: date为空");
+            return "";
+        }
+        var parsedDate = new Date(date);
+        if (isNaN(parsedDate === null || parsedDate === void 0 ? void 0 : parsedDate.getTime())) {
+            console.warn("getDateStr: 无效的日期格式");
+            return "";
+        }
+        var momentObj = getDateMoment(parsedDate.getTime());
         if (!momentObj) {
-            return "-";
+            console.warn("getDateStr: 无效的日期格式");
+            return "";
         }
         return momentObj.format(format);
     }
@@ -290,13 +278,49 @@
             expireTimestamp = parsedDate.setHours(23, 59, 59, 999);
         }
         // 比较时间戳，确定是否过期
-        return expireTimestamp > curTimestamp;
+        return curTimestamp > expireTimestamp;
+    }
+    var weekArr = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+    /**
+     * 获取指定时间的年月日时分秒，星期几
+     * @param value 传入可newDate的时间格式
+     * @returns {}
+     */
+    function getDateAttrs(value, config) {
+        if (config === void 0) { config = {
+            format: "YYYY-MM-DD HH:mm:ss",
+        }; }
+        var date = new Date(value);
+        if (!isDate(date)) {
+            console.warn("getTimeAndWeek：无效的日期格式");
+            return;
+        }
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+        var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+        var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+        var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+        var week = date.getDay();
+        return {
+            year: year,
+            month: month,
+            day: day,
+            hour: hour,
+            minute: minute,
+            second: second,
+            time: hour + ":" + minute + ":" + second,
+            date: year + "年" + month + "月" + day + "日",
+            week: weekArr[week],
+            dataStr: moment(date).format(config.format),
+        };
     }
 
     // tips：此文件是自动生成的，无需手动添加
 
     var index$4 = /*#__PURE__*/Object.freeze({
         __proto__: null,
+        getDateAttrs: getDateAttrs,
         getDateMoment: getDateMoment,
         getDateStr: getDateStr,
         isExpire: isExpire,
@@ -334,12 +358,84 @@
         }
         return desensitizedValue;
     }
+    /**
+     * 姓名脱敏
+     * @description 脱敏规则：陈：陈，陈某：陈*，陈某某：陈*某，陈某某某：陈**某
+     * @param value 输入值
+     * @returns {string}
+     */
+    function nameDesensitize(value) {
+        if (!value) {
+            console.log("nameDesensitize：输入值为空");
+            return "";
+        }
+        var len = value.length;
+        if (len === 2) {
+            return value.replace(/^(.).$/, "$1*");
+        }
+        else if (len > 2) {
+            return value.replace(/^(.).+(.)$/, "$1*$2");
+        }
+        else {
+            return value;
+        }
+    }
+    /**
+     * 手机号脱敏
+     * @description 脱敏规则：默认留前3位和后4位：131****6666
+     * @param value 输入值
+     * @param maskIndexes 需要脱敏的下标值， 默认留前3位和后4位
+     * @returns {string}
+     */
+    function phoneDesensitize(value, maskIndexes) {
+        if (!value) {
+            console.log("nphoneDesensitize：输入值为空");
+            return "";
+        }
+        value = value.toString();
+        maskIndexes = maskIndexes || [3, value.length - 4];
+        return desensitizeValue(value, maskIndexes);
+    }
+    /**
+     * 身份证脱敏
+     * @description mode=1: 输入： "110101880101123"，输出 "110****1123"
+     * @description mode=2: 输入："11010119880101123X"，输出： "1101************X"
+     * @param value 输入值
+     * @param mode 1，2两种模式,默认值1
+     * @returns {string}
+     */
+    function identityDesensitize(value, mode) {
+        if (mode === void 0) { mode = 1; }
+        if (!value) {
+            console.log("identityDesensitize：输入值为空");
+            return "";
+        }
+        if (!mode) {
+            console.log("identityDesensitize：mode为空");
+            return "";
+        }
+        // 输入 "110101880101123"，输出 "110****1123"
+        if (mode === 1) {
+            var regExp = /^(.{3}).*(\d{4})$/;
+            return value.replace(regExp, "$1****$2");
+        }
+        // 输入："11010119880101123X"，输出： "1101************X"
+        if (mode === 2) {
+            var regExp = /^(.{2})(?:\d+)(.{2})$/;
+            return value.replace(regExp, "$1************$2");
+        }
+        return "";
+    }
+    // TODO 邮箱脱敏
 
     // tips：此文件是自动生成的，无需手动添加
 
     var index$3 = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        desensitizeValue: desensitizeValue
+        desensitizeValue: desensitizeValue,
+        identityDesensitize: identityDesensitize,
+        nameDesensitize: nameDesensitize,
+        phoneDesensitize: phoneDesensitize
     });
 
     /******************************************************************************
@@ -766,6 +862,7 @@
     exports.findIdItem = findIdItem;
     exports.findIdName = findIdName;
     exports.forEachTree = forEachTree;
+    exports.getDateAttrs = getDateAttrs;
     exports.getDateMoment = getDateMoment;
     exports.getDateStr = getDateStr;
     exports.getOrdinalKey = getOrdinalKey;
@@ -774,6 +871,7 @@
     exports.getTreeMap = getTreeMap;
     exports.getUrlQuery = getUrlQuery;
     exports.getValueByExpression = getValueByExpression;
+    exports.identityDesensitize = identityDesensitize;
     exports.is = is;
     exports.isArray = isArray;
     exports.isBoolean = isBoolean;
@@ -793,6 +891,8 @@
     exports.isNullAndUnDef = isNullAndUnDef;
     exports.isNullOrUnDef = isNullOrUnDef;
     exports.isNumber = isNumber;
+    exports.isObjEmpty = isObjEmpty;
+    exports.isObjNotEmpty = isObjNotEmpty;
     exports.isObject = isObject;
     exports.isPromise = isPromise;
     exports.isRegExp = isRegExp;
@@ -804,8 +904,10 @@
     exports.isUtil = index$5;
     exports.isWindow = isWindow;
     exports.local = local;
+    exports.nameDesensitize = nameDesensitize;
     exports.objToQueryString = objToQueryString;
     exports.objectUtil = index$2;
+    exports.phoneDesensitize = phoneDesensitize;
     exports.session = session;
     exports.storageUtil = index$1;
     exports.test = test;

@@ -16,18 +16,6 @@ export declare const isEmpty: <T = unknown>(val: T) => val is T;
  */
 export declare const isNotEmpty: <T = unknown>(val: T) => val is T;
 /**
- * 判断是否对象是空
- * @param value 输入的值
- *  @returns {boolean}
- */
-export declare function isObjEmpty(value: Record<string, any>): boolean;
-/**
- * 判断是否对象不为空
- * @param value 输入的值
- * @returns {boolean}
- */
-export declare function isObjNotEmpty(obj: Record<string, any>): boolean;
-/**
  * 是否日期类型
  * @param val
  * @returns
